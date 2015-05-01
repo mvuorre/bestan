@@ -1,4 +1,4 @@
-bestan <- function(y1, y2){
+bestan <- function(y1, y2, its=1.1e+04){
 
     # Create outcome vector
     y <- c(y1, y2)
@@ -21,16 +21,16 @@ bestan <- function(y1, y2){
 
     # Compile Stan model
     # If user makes changes, need to recompile model
-    # model_code <- rstan::stan_model(file='model.stan', model_name = "bestan")
-    # save(model_code, file = 'm.RData')
+    if (!exists("model_dso")){
+        model_dso <- rstan::stan_model(file='model.stan', model_name = "bestan")
+    }
+    # saveRDS(model_dso, file = 'model_DSO.rds')
 
     # Load compiled model
-    load("m.RData")
+    # model_dso <- readRDS("model_DSO.rds")
 
     # Sample from model
-    print("Sampling...")
-    samples <- rstan::sampling(model_code, data_list,
-                               chains=1, iter=1.1e+04, warmup=1000)
-    print("Done sampling.")
+    samples <- rstan::sampling(model_dso, data_list,
+                               chains=1, iter=its, warmup=1000)
     return(samples)
 }
