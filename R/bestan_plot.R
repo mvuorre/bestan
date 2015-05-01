@@ -1,5 +1,8 @@
 bestan_plot <- function(stanobj){
 
+    library(reshape2)
+    library(ggplot2)
+    library(dplyr)
     # Parameter posterior distribution
     bestan_df <- as.data.frame(stanobj) %>%
         select(-matches("lp__")) %>%
