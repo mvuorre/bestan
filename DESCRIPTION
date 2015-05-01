@@ -4,7 +4,7 @@ Version: 0.1
 Authors@R: person("Matti", "Vuorre", , "mv2521@columbia.edu", role = c("aut", "cre"))
 Description: This package implements the model described in Kruschke, 2013:
 "Bayesian Estimation Supersedes the t-test" JEP:G, 142(2), but uses Stan for MCMC sampling.
-Depends: R (>= 3.1.2); rstan; ggplot2
+Depends: R (>= 3.1.2)
 License: MIT license
 LazyData: true
 Imports:
