@@ -1,4 +1,15 @@
-bestan <- function(y1, y2, its=1.1e+04){
+#' BEST: Stan edition
+#'
+#' Use bestan() to compare two groups.
+#' @param y1 A vector of values for group 1
+#' @param y2 A vector of values for group 2
+#' @param iters Number of MCMC iterations. Defaults to same as original BEST.
+#' @examples
+#' group_1 <- rnorm(20, 10, 5)
+#' group_2 <- rnorm(20, 0, 2)
+#' bestan(y1=group_1, y2=group_2)
+
+bestan <- function(y1, y2, iters=1.1e+05){
 
     # Create outcome vector
     y <- c(y1, y2)
@@ -67,6 +78,6 @@ bestan <- function(y1, y2, its=1.1e+04){
 
     # Sample from model
     samples <- rstan::sampling(model_dso, data_list,
-                               chains=1, iter=its, warmup=1000)
+                               chains=1, iter=iters, warmup=1000)
     return(samples)
 }
