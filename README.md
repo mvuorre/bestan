@@ -1,6 +1,8 @@
 # bestan
 
-Robust bayesian estimation, the Stan version.
+Robust bayesian estimation, the Stan version. 
+
+The package is currently at version 0.1. Proceed with caution.
 
 ## Background
 
