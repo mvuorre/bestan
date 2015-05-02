@@ -36,5 +36,5 @@ fit
 bestan_plot(fit)
 ```
 
-
+Another example can be found [here](http://rpubs.com/mv2521/bestan01)
 
