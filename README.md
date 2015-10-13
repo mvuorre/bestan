@@ -32,6 +32,7 @@ You'll also need to have rstan installed. Instructions on how to install rstan c
 ### Compare two groups
 
 ```
+library(bestan)
 g1 <- rnorm(16, 10, 5)
 g2 <- rnorm(32, 7, 3)
 fit <- bestan(y1=g1, y2=g2)
