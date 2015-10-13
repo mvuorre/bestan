@@ -13,8 +13,13 @@ bestan_plot <- function(stanobj){
         stat_bin(aes(y=..ndensity..),
                  col="white", fill="skyblue") +
         labs(x="", y="") +
-        facet_wrap(~variable, scales = "free", ncol=3) +
-        theme_bw() +
+        facet_wrap(~variable,
+                   scales = "free",
+                   ncol=3) +
+        theme_minimal() +
+        labs(title="Posterior samples of bestan fit") +
         theme(axis.text.y = element_blank(),
-              axis.ticks.y = element_blank())
+              axis.ticks.y = element_blank(),
+              panel.background = element_rect(color="gray50"),
+              panel.grid.major = element_blank())
 }

@@ -20,13 +20,14 @@ bestan is probably only useful if one wants to examine and learn how to implemen
 
 ### Install bestan
 
+You first need to install the [devtools](https://github.com/hadley/devtools) package to be able to install packages from github. Then, you can install bestan directly from the github repository:
+
 ```
 install.packages("devtools")
-library(devtools)
-install_github("mvuorre/bestan")
+devtools::install_github("mvuorre/bestan")
 ```
 
-Instructions on how to install rstan can be found on the [project website](http://mc-stan.org/)
+You'll also need to have rstan installed. Instructions on how to install rstan can be found on the [project website](http://mc-stan.org/)
 
 ### Compare two groups
 

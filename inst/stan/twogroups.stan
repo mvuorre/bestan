@@ -1,4 +1,3 @@
-# This model called by 'bestan.R'
 data {
     int N;
     real y[N];

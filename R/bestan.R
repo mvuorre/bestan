@@ -9,7 +9,7 @@
 #' group_2 <- rnorm(20, 0, 2)
 #' bestan(y1=group_1, y2=group_2)
 
-bestan <- function(y1, y2, iters=1.1e+05){
+bestan <- function(y1, y2, iters=110000){
 
     # Create outcome vector
     y <- c(y1, y2)
@@ -30,54 +30,9 @@ bestan <- function(y1, y2, iters=1.1e+05){
         sigma_prior_upper = sd(y) * 1000
     )
 
-    # Save model into string
-    model_string <- "
-    data {
-        int N;
-        real y[N];
-        int group_id[N];
-        real mu_prior_location;
-        real mu_prior_scale;
-        real sigma_prior_lower;
-        real sigma_prior_upper;
-        int n1;
-        int n2;
-    }
-
-    parameters {
-        real mu[2];
-        real<lower=0, upper=1000> sigma[2];
-        real<lower=0, upper=1000> nu;
-    }
-
-    model {
-        mu ~ normal(mu_prior_location, mu_prior_scale);
-        sigma ~ uniform(sigma_prior_lower, sigma_prior_upper);
-        nu ~ exponential(1.0/29.0);
-        for (i in 1:N)
-            y[i] ~ student_t(nu, mu[group_id[i]], sigma[group_id[i]]);
-    }
-
-    generated quantities {
-        real diff_mu;
-        real cohens_d;
-        diff_mu <- mu[1] - mu[2];
-        cohens_d <- diff_mu / sqrt(( n1*sigma[1]^2 + n2*sigma[2]^2) / (n1+n2-2));
-    }
-    "
-
-    # Compile Stan model
-    # If user makes changes, need to recompile model
-    if (!exists("model_dso")){
-        model_dso <- rstan::stan_model(model_code = model_string, model_name = "bestan")
-    }
-    # saveRDS(model_dso, file = 'model_DSO.rds')
-
-    # Load compiled model
-    # model_dso <- readRDS("model_DSO.rds")
-
     # Sample from model
-    samples <- rstan::sampling(model_dso, data_list,
-                               chains=1, iter=iters, warmup=1000)
+    model_file <- system.file("stan/twogroups.stan", package="bestan")
+    samples <- stan(file=model_file, data=data_list,
+                    chains=1, iter=iters, warmup=10000)
     return(samples)
 }

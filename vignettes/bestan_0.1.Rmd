@@ -1,0 +1,68 @@
+---
+title: "bestan 0.1 test drive"
+author: "Matti Vuorre"
+date: "May 1, 2015"
+output:
+  html_document:
+    theme: united
+---
+
+```{r, echo=F, message=F, warning=F}
+library(knitr)
+opts_chunk$set(message=F)
+opts_chunk$set(warning=F)
+```
+
+```{r}
+library(ggplot2)
+library(dplyr)
+theme_set(theme_bw())
+```
+
+For this example, we'll be comparing the weights of chicks on different diets.
+
+```{r}
+data("chickwts")
+
+chickwts %>% 
+    ggplot(aes(x=feed, y=weight)) +
+    stat_summary(fun.data="mean_cl_boot", col="skyblue", size=1) +
+    geom_point(shape=1)
+
+# Focus on comparing casein and linseed
+casein <- chickwts %>% 
+    filter(feed=="casein") %>%
+    select(weight)
+linseed <- chickwts %>% 
+    filter(feed=="linseed") %>%
+    select(weight)
+```
+
+We're replacing the following t-test with bayesian estimation.
+
+```{r}
+t.test(casein, linseed, paired=F)
+```
+
+Run bestan
+
+```{r}
+library(bestan)
+fit <- bestan(casein[,1], linseed[,1])
+```
+
+Plot results. Note that in the current version (0.1), it simply spits out histograms, and no interval summaries.
+
+```{r fig.retina=2}
+bestan_plot(fit)
+```
+
+All ```rstan``` functions can be used.
+
+```{r}
+rstan:::print.stanfit(fit, probs=c(.025, .5, .975))
+```
+
+
+
+
