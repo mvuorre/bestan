@@ -37,8 +37,10 @@ g1 <- rnorm(16, 10, 5)
 g2 <- rnorm(32, 7, 3)
 fit <- bestan(y1=g1, y2=g2)
 fit
-bestan_plot(fit)
+bestan_plot(fit, color="black")
 ```
+
+[example.png](example.png)
 
 Another example can be found [here](http://rpubs.com/mv2521/bestan01)
 

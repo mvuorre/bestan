@@ -1,3 +1,9 @@
 exportPattern("^[^\\.]")
 
-attach(rstan)
+importFrom(rstan, stan)
+importFrom(rstan, sampling)
+#importFrom(rstan, stan_model)
+importFrom(rstan, extract)
+importFrom(rstan, sflist2stanfit)
+importFrom(rstan, summary)
+importClassesFrom(rstan)

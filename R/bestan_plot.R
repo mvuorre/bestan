@@ -1,4 +1,4 @@
-bestan_plot <- function(stanobj){
+bestan_plot <- function(stanobj, color="purple"){
 
     library(reshape2)
     library(ggplot2)
@@ -11,7 +11,7 @@ bestan_plot <- function(stanobj){
     # Plot posterior medians and 2.5 & 97.5 percentiles
     ggplot(melt(bestan_df), aes(x=value)) +
         stat_bin(aes(y=..ndensity..),
-                 col="white", fill="skyblue") +
+                 col="white", fill=color) +
         labs(x="", y="") +
         facet_wrap(~variable,
                    scales = "free",
@@ -21,5 +21,5 @@ bestan_plot <- function(stanobj){
         theme(axis.text.y = element_blank(),
               axis.ticks.y = element_blank(),
               panel.background = element_rect(color="gray50"),
-              panel.grid.major = element_blank())
+              panel.grid = element_blank())
 }
