@@ -40,7 +40,7 @@ fit
 bestan_plot(fit, color="black")
 ```
 
-[example.png](example.png)
+![example.png](example.png)
 
 Another example can be found [here](http://rpubs.com/mv2521/bestan01)
 
